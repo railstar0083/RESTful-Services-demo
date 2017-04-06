@@ -1,0 +1,23 @@
+body {
+	height: 100%;
+	color: #000;
+	background: #ccc;
+	#SchoolTable {
+		border: 1px solid #000;
+		width: 960px;
+		height: 50%;
+		margin: 0 auto;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+	.services-form {
+	    width: 100%;
+		text-align: center;
+		margin: 30px auto;
+		.btn {
+			width: 150px;
+			height: 60px;
+		}
+	}
+	
+}

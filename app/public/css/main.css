@@ -1,0 +1,20 @@
+body {
+  height: 100%;
+  color: #000;
+  background: #ccc; }
+  body #SchoolTable {
+    border: 1px solid #000;
+    width: 960px;
+    height: 50%;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+  body .services-form {
+    width: 100%;
+    text-align: center;
+    margin: 30px auto; }
+    body .services-form .btn {
+      width: 150px;
+      height: 60px; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNDLGFBQVk7RUFDWixZQUFXO0VBQ1gsaUJBQWdCLEVBbUJoQjtFQXRCRDtJQUtFLHVCQUFzQjtJQUN0QixhQUFZO0lBQ1osWUFBVztJQUNYLGVBQWM7SUFDZCxtQkFBa0I7SUFDbEIsbUJBQWtCLEVBQ2xCO0VBWEY7SUFhSyxZQUFXO0lBQ2QsbUJBQWtCO0lBQ2xCLGtCQUFpQixFQUtqQjtJQXBCRjtNQWlCRyxhQUFZO01BQ1osYUFBWSxFQUNaIiwiZmlsZSI6Im1haW4uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XHJcblx0aGVpZ2h0OiAxMDAlO1xyXG5cdGNvbG9yOiAjMDAwO1xyXG5cdGJhY2tncm91bmQ6ICNjY2M7XHJcblx0I1NjaG9vbFRhYmxlIHtcclxuXHRcdGJvcmRlcjogMXB4IHNvbGlkICMwMDA7XHJcblx0XHR3aWR0aDogOTYwcHg7XHJcblx0XHRoZWlnaHQ6IDUwJTtcclxuXHRcdG1hcmdpbjogMCBhdXRvO1xyXG5cdFx0b3ZlcmZsb3cteDogaGlkZGVuO1xyXG5cdFx0b3ZlcmZsb3cteTogc2Nyb2xsO1xyXG5cdH1cclxuXHQuc2VydmljZXMtZm9ybSB7XHJcblx0ICAgIHdpZHRoOiAxMDAlO1xyXG5cdFx0dGV4dC1hbGlnbjogY2VudGVyO1xyXG5cdFx0bWFyZ2luOiAzMHB4IGF1dG87XHJcblx0XHQuYnRuIHtcclxuXHRcdFx0d2lkdGg6IDE1MHB4O1xyXG5cdFx0XHRoZWlnaHQ6IDYwcHg7XHJcblx0XHR9XHJcblx0fVxyXG5cdFxyXG59Il19 */

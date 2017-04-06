@@ -1,4 +1,4 @@
-{
+ {
 
     "school1" : {"name": "Acacia Elementary", "type": "Elementary", "phone": "(602) 896-5000", "address": "3021 W Evans Dr", "city": "Phoenix", "zipcode": "85053"},
 	"school2" : {"name": "Alhambra College Preparatory", "type": "High School", "phone": "(602) 246-0578", "address": "3802 W Maryland Ave", "city": "Phoenix", "zipcode": "85019"},
