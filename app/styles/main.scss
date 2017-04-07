@@ -9,6 +9,22 @@ body {
 		margin: 0 auto;
 		overflow-x: hidden;
 		overflow-y: scroll;
+		background: #fff;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		.school {
+			flex-grow: 1;
+			width: 30%;
+			padding-left: 3%;
+			h2 {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+			&.selected {
+				border: 1px dashed #000;
+			}
+		}
 	}
 	.services-form {
 	    width: 100%;
@@ -17,6 +33,9 @@ body {
 		.btn {
 			width: 150px;
 			height: 60px;
+		}
+		.filter-form {
+			display: none;
 		}
 	}
 	
