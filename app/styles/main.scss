@@ -30,6 +30,20 @@ body {
 	    width: 100%;
 		text-align: center;
 		margin: 30px auto;
+		form {
+			width: 300px;
+			margin: 25px auto 0;
+			text-align: left;
+			label {
+				display: block;
+			}
+			input[type="submit"] {
+				display: block;
+				width: 75px;
+				height: 35px;
+				margin-top: 5px;
+			}
+		}
 		.btn {
 			width: 150px;
 			height: 60px;

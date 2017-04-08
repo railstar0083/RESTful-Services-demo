@@ -1,29 +1,58 @@
 var http = require('http'),
 	open = require('open'),
 	fs = require('fs'),
-	app = require('./app/app.js'),
+	formidable = require('formidable'),
+	util = require('util'),
+	express = require('express'),
+	app = express(),
 	services = require('./services.js');
 
-//Lets define a port we want to listen to
-const PORT=8080; 
-
+const _PATH = "/app/index.html";
+const PORT = "8081";
+	
 //We need a function which handles requests and send response
 function handleRequest(request, response){
-	services();
+	services(request);
     //response.end('It Works!! Path Hit: ' + request.url);
 }
 
-//Create a server
-var server = http.createServer(handleRequest);
+app.use(express.static('app/public'));
 
-//Lets start our server
-server.listen(PORT, function(){
-    //Callback triggered when server is successfully listening. Hurray!
-	//open('http://localhost:8080/app/index.html');
-    console.log("Server listening on: http://localhost:%s", PORT);
-	
-	app();
-});
+// This responds with "Hello World" on the homepage
+app.get('/', function (req, res) {
+   console.log("Got a GET request for the homepage");
+   res.sendFile(__dirname + "/" + "app/index.html");
+})
+
+// This responds a POST request for the homepage
+app.post('/', function (req, res) {
+   console.log("Got a POST request for the homepage");
+   res.send('Hello POST');
+})
+
+// This responds a DELETE request for the /del_user page.
+app.delete('/del_user', function (req, res) {
+   console.log("Got a DELETE request for /del_user");
+   res.send('Hello DELETE');
+})
+
+// This responds a GET request for the /list_user page.
+app.get('/list_schools', function (req, res) {
+   console.log("Got a GET request for /list_user");
+   res.send('Page Listing');
+})
+
+// This responds a GET request for abcd, abxcd, ab123cd, and so on
+app.get('/ab*cd', function(req, res) {   
+   console.log("Got a GET request for /ab*cd");
+   res.send('Page Pattern Match');
+})
+
+var server = app.listen(PORT, 'localhost', function () {
+   var host = server.address().address
+   var port = server.address().port
+   console.log("Example app listening at http://%s:%s", host, port);
+})
 
 
 

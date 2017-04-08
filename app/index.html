@@ -27,19 +27,20 @@
 	</div>
 	<div class="edit-school">
 	</div>
-	<form class="new-school">
+	<form class="new-school" method="post">
 		<label>School Name</label>
-		<input type="text" class="new-input name-input" />
+		<input type="text" name="school[name]" class="new-input name-input" />
 		<label>Type</label>
-		<input type="text" class="new-input type-input" placeholder="(ex. High School)"/>
+		<input type="text" name="school[type]" class="new-input type-input" placeholder="(ex. High School)"/>
 		<label>Address</label>
-		<input type="text" class="new-input address-input" placeholder="(No P.O. Boxes)"/>
+		<input type="text" name="school[address]" class="new-input address-input" placeholder="(No P.O. Boxes)"/>
 		<label>City</label>
-		<input type="text" class="new-input city-input" placeholder="" />
+		<input type="text" name="school[city]" class="new-input city-input" placeholder="" />
 		<label>Zip Code</label>
-		<input type="text" class="new-input zip-input" placeholder="" />
+		<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" />
 		<label>Phone</label>
-		<input type="text" class="new-input phone-input" placeholder="optional" />
+		<input type="text" name="school[phone]" class="new-input phone-input" placeholder="optional" />
+		<input type="submit" class="new-submit" value="ADD" onclick="addNew" />
 	</form>
 </div>
 
