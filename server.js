@@ -17,11 +17,12 @@ function handleRequest(request, response){
 }
 
 app.use(express.static('app/public'));
+app.use(express.static('scripts'));
 
 // This responds with "Hello World" on the homepage
 app.get('/', function (req, res) {
    console.log("Got a GET request for the homepage");
-   res.sendFile(__dirname + "/" + "app/index.html");
+   res.sendFile(__dirname + "/app/" + "index.html");
 })
 
 // This responds a POST request for the homepage
@@ -48,7 +49,7 @@ app.get('/ab*cd', function(req, res) {
    res.send('Page Pattern Match');
 })
 
-var server = app.listen(PORT, 'localhost', function () {
+var server = app.listen(PORT, function () {
    var host = server.address().address
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port);
