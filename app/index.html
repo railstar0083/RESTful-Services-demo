@@ -24,24 +24,32 @@
 		<input type="text" class="filter-input" placeholder="Filter Text" />
 	</form>
 	<div class="delete-school">
+	<form method="post" action="/delete_school">
+		<label>School Name</label>
+		<input type="text" name="name" class="new-input name-input" />
+		<input type="submit" class="new-submit" value="DELETE" />
+	</form>
 	</div>
 	<div class="edit-school">
 	</div>
-	<form class="new-school" method="post" action="/add_school">
-		<label>School Name</label>
-		<input type="text" name="school[name]" class="new-input name-input" />
-		<label>Type</label>
-		<input type="text" name="school[type]" class="new-input type-input" placeholder="(ex. High School)"/>
-		<label>Address</label>
-		<input type="text" name="school[address]" class="new-input address-input" placeholder="(No P.O. Boxes)"/>
-		<label>City</label>
-		<input type="text" name="school[city]" class="new-input city-input" placeholder="" />
-		<label>Zip Code</label>
-		<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" />
-		<label>Phone</label>
-		<input type="text" name="school[phone]" class="new-input phone-input" placeholder="optional" />
-		<input type="submit" class="new-submit" value="ADD" />
-	</form>
+	<div class="new-school">
+		<form method="post" action="/add_school">
+			<label>School Name</label>
+			<input type="text" name="school[name]" class="new-input name-input" />
+			<label>Type</label>
+			<input type="text" name="school[type]" class="new-input type-input" placeholder="(ex. High School)"/>
+			<label>Address</label>
+			<input type="text" name="school[address]" class="new-input address-input" placeholder="(No P.O. Boxes)"/>
+			<label>City</label>
+			<input type="text" name="school[city]" class="new-input city-input" placeholder="" />
+			<label>Zip Code</label>
+			<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" />
+			<label>Phone</label>
+			<input type="text" name="school[phone]" class="new-input phone-input" placeholder="optional" />
+			<input type="submit" class="new-submit" value="ADD" />
+		</form>
+	</div>
+	
 </div>
 
 </body>

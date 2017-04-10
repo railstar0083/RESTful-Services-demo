@@ -35,14 +35,11 @@ app.get('/', function (req, res) {
 // This responds a POST request for the homepage
 app.post('/add_school', function (req, res) {
    console.log("Got a POST request to add a school");
-   console.log( "./app/public/json/" + "data.json");
    fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
     if(err == null) {
         console.log('File exists');
     } else if(err.code == 'ENOENT') {
 		console.log("Error");
-        // file does not exist
-        //fs.writeFile('log.txt', 'Some log\n');
     } else {
         console.log('Some other error: ', err.code);
     }
@@ -52,7 +49,7 @@ app.post('/add_school', function (req, res) {
 	   let count = Object.keys(data).length;
 	   count = count + 1;
 	   data["school" + count] = req.body.school;
-       console.log( data );
+       //console.log( data );
 	   data = JSON.stringify(data)
        fs.writeFile("./app//public/json/" + "data.json", data, function (err){
 			if(err) {
@@ -64,9 +61,37 @@ app.post('/add_school', function (req, res) {
 })
 
 // This responds a DELETE request for the /del_user page.
-app.delete('/del_school', function (req, res) {
+app.post('/delete_school', function (req, res) {
    console.log("Got a DELETE request for /del_school");
-   res.send('Hello DELETE');
+   fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
+    if(err == null) {
+        console.log('File exists');
+    } else if(err.code == 'ENOENT') {
+		console.log("Error");
+    } else {
+        console.log('Some other error: ', err.code);
+    }
+   });
+   fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
+       data = JSON.parse( data );
+	   let id = req.body.name;
+	   for(var key in data) 
+	   {
+			if(data[key].name === id)
+			{
+				delete data[key];
+			}	
+		
+	   }
+	   //console.log( data );
+	   data = JSON.stringify(data)
+       fs.writeFile("./app//public/json/" + "data.json", data, function (err){
+			if(err) {
+			return console.log(err);
+		}
+	   })
+	   res.redirect('back');
+   });
 })
 
 // This responds a GET request for the /list_user page.

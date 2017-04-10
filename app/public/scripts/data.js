@@ -38,6 +38,28 @@ $(document).ready(function(){
 		let tag = $(this);
 		tag.removeClass("selected");
 	});
+	
+	$("#add_new_school").on("click", function(){
+		//Add new form switch
+		$(".new-school").show();
+		$(".delete-school").hide();
+		$(".edit-school").hide;
+	});
+	
+	$("#delete_school").on("click", function(){
+		//Delete school switch
+		$(".new-school").hide();
+		$(".delete-school").show();
+		$(".edit-school").hide;
+	});
+	
+	$("#edit_school").on("click", function(){
+		//Edit school switch
+		$(".new-school").hide();
+		$(".delete-school").hide();
+		$(".edit-school").show;
+	});
+	
 	console.log(SCHOOLS);
 	
 
