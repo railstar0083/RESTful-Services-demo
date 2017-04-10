@@ -17,9 +17,9 @@
 </div>
 
 <div class="services-form">
-	<button class="btn">Add School</button>
-	<button class="btn">Delete School</button>
-	<button class="btn">Edit School</button>
+	<button class="btn" id="add_new_school">Add School</button>
+	<button class="btn" id="delete_school">Delete School</button>
+	<button class="btn" id="edit_school">Edit School</button>
 	<form class="filter-form">
 		<input type="text" class="filter-input" placeholder="Filter Text" />
 	</form>
@@ -27,7 +27,7 @@
 	</div>
 	<div class="edit-school">
 	</div>
-	<form class="new-school" method="post">
+	<form class="new-school" method="post" action="/add_school">
 		<label>School Name</label>
 		<input type="text" name="school[name]" class="new-input name-input" />
 		<label>Type</label>
@@ -40,7 +40,7 @@
 		<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" />
 		<label>Phone</label>
 		<input type="text" name="school[phone]" class="new-input phone-input" placeholder="optional" />
-		<input type="submit" class="new-submit" value="ADD" onclick="addNew" />
+		<input type="submit" class="new-submit" value="ADD" />
 	</form>
 </div>
 
