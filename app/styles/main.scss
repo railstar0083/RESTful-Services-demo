@@ -37,15 +37,27 @@ body {
 			label {
 				display: block;
 			}
+		}
+		.new-school, .delete-school, .edit-school {
+			display: none;
 			input[type="submit"] {
 				display: block;
 				width: 75px;
 				height: 35px;
-				margin-top: 5px;
+				margin: 5px auto 0 auto;
 			}
 		}
-		.new-school, .delete-school, edit-school {
-			display: none;
+		.edit-school {
+			width: 960px;
+			margin: 0 auto;
+			.edit-school-forms {
+				.form-wrapper {
+					width: 22%;
+					padding-left: 5%;
+					display: inline-block;
+				}
+				
+			}
 		}
 		.btn {
 			width: 150px;

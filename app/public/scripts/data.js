@@ -15,7 +15,22 @@ $(document).ready(function(){
     // });
 	
 	function selectSchool() {
-		
+		$(".edit-school-forms").empty();
+		let numberSelected = 0;
+		numberSelected = $(".selected").length
+		console.log(numberSelected);
+		// $(".selected").each(function(){
+			// SCHOOLS.push(this);
+		// })
+		//console.log(SCHOOLS);
+		let i=1;
+		while(i <= numberSelected)
+		{
+			$(".edit-school-forms").append(
+				"<div class='form-wrapper'><form method='post' action='/edit_school'><label>School Name</label><input type='text' name='school[name]' class='new-input name-input' /><label>Type</label><input type='text' name='school[type]' class='new-input type-input' placeholder='(ex. High School)'/><label>Address</label><input type='text' name='school[address]' class='new-input address-input' placeholder='(No P.O. Boxes)'/><label>City</label><input type='text' name='school[city]' class='new-input city-input' placeholder='' /><label>Zip Code</label><input type='text' name='school[zip]' class='new-input zip-input' placeholder='' /><label>Phone</label><input type='text' name='school[phone]' class='new-input phone-input' placeholder='optional' /></form></div>"
+			)
+			i++;
+		}
 	}
 	
 	$.getJSON("../json/data.json", function (data){
@@ -43,21 +58,22 @@ $(document).ready(function(){
 		//Add new form switch
 		$(".new-school").show();
 		$(".delete-school").hide();
-		$(".edit-school").hide;
+		$(".edit-school").hide();
 	});
 	
 	$("#delete_school").on("click", function(){
 		//Delete school switch
 		$(".new-school").hide();
 		$(".delete-school").show();
-		$(".edit-school").hide;
+		$(".edit-school").hide();
 	});
 	
 	$("#edit_school").on("click", function(){
 		//Edit school switch
 		$(".new-school").hide();
 		$(".delete-school").hide();
-		$(".edit-school").show;
+		$(".edit-school").show();
+		selectSchool();
 	});
 	
 	console.log(SCHOOLS);

@@ -75,15 +75,20 @@ app.post('/delete_school', function (req, res) {
    fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
        data = JSON.parse( data );
 	   let id = req.body.name;
+	   let found = false;
 	   for(var key in data) 
 	   {
+		    
 			if(data[key].name === id)
 			{
 				delete data[key];
-			}	
-		
+				found = true;
+			}
+			
 	   }
-	   //console.log( data );
+	   if(!found){
+			console.log("No school with that name was found.")
+	   }
 	   data = JSON.stringify(data)
        fs.writeFile("./app//public/json/" + "data.json", data, function (err){
 			if(err) {
