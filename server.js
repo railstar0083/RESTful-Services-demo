@@ -4,6 +4,7 @@ var http = require('http'),
 	formidable = require('formidable'),
 	util = require('util'),
 	bodyParser = require('body-parser'),
+	async = require('async'),
 	express = require('express'),
 	app = express(),
 	services = require('./services.js');
@@ -25,6 +26,31 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+//Make a queue for the services
+var serviceQ = async.priorityQueue(function (task, callback) {
+    console.log('hello ' + task.name);
+    callback();
+}, 1);
+
+serviceQ.drain = function(data) {
+	
+    console.log('all services have been processed');
+}
+
+//File write queue
+
+// var writeQ = async.queue(function (task, callback) {
+    // console.log('hello ' + task.name);
+    // callback();
+// }, 30);
+
+// writeQ.drain = function(data) {
+	
+    // console.log('all services have been processed');
+// }
+
+
 
 // This responds with "Hello World" on the homepage
 app.get('/', function (req, res) {
@@ -106,10 +132,59 @@ app.get('/list_schools', function (req, res) {
    res.redirect('back');
 })
 
-// This responds a GET request for abcd, abxcd, ab123cd, and so on
-app.get('/ab*cd', function(req, res) {   
-   console.log("Got a GET request for /ab*cd");
-   res.send('Page Pattern Match');
+
+app.post('/edit_school/:id', function(req, res) {
+   var priority = parseInt(req.params.id, 10);
+   serviceQ.push({name: "edit-post-data"}, priority, function(err){
+	   console.log("Got a EDIT request for /edit_school");
+	   fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
+		if(err == null) {
+			console.log('File exists');
+		} else if(err.code == 'ENOENT') {
+			console.log("Error");
+		} else {
+			console.log('Some other error: ', err.code);
+		}
+	   });
+	   console.log(req.params.id);
+	   console.log(req.body);
+	   fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
+		   data = JSON.parse( data );
+		   data[req.params.id] = req.body.school;
+		   //console.log( data );
+		   data = JSON.stringify(data)
+		   fs.writeFile("./app//public/json/" + "data.json", data, function (err){
+			if(err) {
+			return console.log(err);
+		     }
+	       })
+		   //res.redirect('/');
+	   });
+   })	
+   // console.log("Got a EDIT request for /edit_school");
+   // fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
+    // if(err == null) {
+        // console.log('File exists');
+    // } else if(err.code == 'ENOENT') {
+		// console.log("Error");
+    // } else {
+        // console.log('Some other error: ', err.code);
+    // }
+   // });
+   // console.log(req.params.id);
+   // console.log(req.body);
+   // fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
+       // data = JSON.parse( data );
+	   // data[req.params.id] = req.body.school;
+       // console.log( data );
+	   // data = JSON.stringify(data)
+       // fs.writeFile("./app//public/json/" + "data.json", data, function (err){
+			// if(err) {
+			// return console.log(err);
+		// }
+	   // })
+   // });
+   //res.redirect('back');
 })
 
 var server = app.listen(PORT, function () {

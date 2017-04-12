@@ -2,20 +2,40 @@ $(document).ready(function(){
 	
 	
 	
-	// $.ajax({
-		// url: "../json/data.json",
-		// contentType: "application/json; charset=utf-8",
-		// dataType: 'json',
-		// success: function(data){
-			// SCHOOLS.push(data)
-		// },
-		// error: function() {
-			// console.log('There was an error loading the data.');
-		// }
-    // });
+	var SCHOOLS = new Array;
+	var FORMS = new Array;
+	
+	function editSubmit () {
+		FORMS = [];
+		let formCount = $(".edit-form").length;
+		$(".edit-form").each(function(){
+			let id = $(this).attr("id");
+			FORMS.push(id);
+		})
+		let i = 0;
+		
+		while(i < formCount){
+			let form = $("#"+FORMS[i]+"").serialize();
+			let schoolID = FORMS[i];
+			schoolID = schoolID.replace("form-","")
+			let postURI = "/edit_school/" + schoolID; 
+			console.log(postURI);
+			$.ajax({
+				url:postURI,
+				type:'POST',
+				data:form,
+				success:function(result){
+					//location.reload();
+				}
+			});
+			i++;
+		}
+		//$(".edit-form").submit();
+		
+	}
 	
 	function selectSchool() {
-		var SCHOOLS = new Array;
+		SCHOOLS = [];
 		$(".edit-school-forms").empty();
 		let numberSelected = 0;
 		numberSelected = $(".selected").length;
@@ -28,7 +48,7 @@ $(document).ready(function(){
 		while(i < numberSelected)
 		{
 			$(".edit-school-forms").append(
-				"<div class='form-wrapper' id='"+SCHOOLS[i]+"'><form method='post' action='/edit_school/:"+SCHOOLS[i]+"'><label>School Name</label><input type='text' name='school[name]' class='new-input name-input' /><label>Type</label><input type='text' name='school[type]' class='new-input type-input' placeholder='(ex. High School)'/><label>Address</label><input type='text' name='school[address]' class='new-input address-input' placeholder='(No P.O. Boxes)'/><label>City</label><input type='text' name='school[city]' class='new-input city-input' placeholder='' /><label>Zip Code</label><input type='text' name='school[zip]' class='new-input zip-input' placeholder='' /><label>Phone</label><input type='text' name='school[phone]' class='new-input phone-input' placeholder='optional' /></form></div>"
+				"<div class='form-wrapper' id='"+SCHOOLS[i]+"'><form id='form-"+SCHOOLS[i]+"' class='edit-form' method='post' action='/edit_school/"+SCHOOLS[i]+"'><label>School Name</label><input type='text' name='school[name]' class='new-input name-input' /><label>Type</label><input type='text' name='school[type]' class='new-input type-input' placeholder='(ex. High School)'/><label>Address</label><input type='text' name='school[address]' class='new-input address-input' placeholder='(No P.O. Boxes)'/><label>City</label><input type='text' name='school[city]' class='new-input city-input' placeholder='' /><label>Zip Code</label><input type='text' name='school[zip]' class='new-input zip-input' placeholder='' /><label>Phone</label><input type='text' name='school[phone]' class='new-input phone-input' placeholder='optional' /></form></div>"
 			)
 			$(".form-wrapper#" + SCHOOLS[i] + " form .name-input").val($("#SchoolTable .school#" + SCHOOLS[i] + " .name").text());
 			$(".form-wrapper#" + SCHOOLS[i] + " form .type-input").val($("#SchoolTable .school#" + SCHOOLS[i] + " .type").text().replace('Type: ', ''));
@@ -85,6 +105,11 @@ $(document).ready(function(){
 		$(".delete-school").hide();
 		$(".edit-school").show();
 		selectSchool();
+	});
+	
+	$("#edit-submit-button").on("click", function(){
+		//Submit forms
+		editSubmit();
 	});
 	
 	//console.log(SCHOOLS);
