@@ -11,65 +11,32 @@ var http = require('http'),
 
 const _PATH = "/app/index.html";
 const PORT = "8081";
-	
-//We need a function which handles requests and send response
-function handleRequest(request, response){
-	services(request);
-    //response.end('It Works!! Path Hit: ' + request.url);
-}
 
+//Public route
 app.use(express.static('app/public'));
 
-
+//BodyParser setup
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 app.use(bodyParser.json());
 
-//Make a queue for the services
-var serviceQ = async.priorityQueue(function (task, callback) {
-    console.log('hello ' + task.name);
-    callback();
-}, 1);
-
-serviceQ.drain = function(data) {
-	
-    console.log('all services have been processed');
+//We need a function which handles requests and send response
+function handleRequest(request, response){
+	services(request);
+    //response.end('It Works!! Path Hit: ' + request.url);
 }
 
-//File write queue
-
-// var writeQ = async.queue(function (task, callback) {
-    // console.log('hello ' + task.name);
-    // callback();
-// }, 30);
-
-// writeQ.drain = function(data) {
-	
-    // console.log('all services have been processed');
-// }
-
-
-
-// This responds with "Hello World" on the homepage
+// Home
 app.get('/', function (req, res) {
    console.log("Got a GET request for the homepage");
    res.sendFile(__dirname + "/app/" + "index.html");
 })
 
-// This responds a POST request for the homepage
+// This responds a POST request 
 app.post('/add_school', function (req, res) {
    console.log("Got a POST request to add a school");
-   fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
-    if(err == null) {
-        console.log('File exists');
-    } else if(err.code == 'ENOENT') {
-		console.log("Error");
-    } else {
-        console.log('Some other error: ', err.code);
-    }
-   });
    fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
        data = JSON.parse( data );
 	   let count = Object.keys(data).length;
@@ -132,61 +99,47 @@ app.get('/list_schools', function (req, res) {
    res.redirect('back');
 })
 
-
-app.post('/edit_school/:id', function(req, res) {
-   var priority = parseInt(req.params.id, 10);
-   serviceQ.push({name: "edit-post-data"}, priority, function(err){
-	   console.log("Got a EDIT request for /edit_school");
-	   fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
-		if(err == null) {
-			console.log('File exists');
-		} else if(err.code == 'ENOENT') {
-			console.log("Error");
-		} else {
-			console.log('Some other error: ', err.code);
-		}
-	   });
+//This is the queue task for async
+var editHandler = function(task, done) {
+	
+	var req = task.req;
+	var res = task.res;
+	
 	   console.log(req.params.id);
 	   console.log(req.body);
-	   fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
+	   //wrapped in a setTimeout to prevent a race condition
+		setTimeout(function(){
+			fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
 		   data = JSON.parse( data );
 		   data[req.params.id] = req.body.school;
 		   //console.log( data );
-		   data = JSON.stringify(data)
-		   fs.writeFile("./app//public/json/" + "data.json", data, function (err){
+		   fs.writeFile("./app//public/json/" + "data.json", JSON.stringify(data), function (err){
 			if(err) {
-			return console.log(err);
-		     }
+				return console.log(err);
+		    }
 	       })
-		   //res.redirect('/');
-	   });
-   })	
-   // console.log("Got a EDIT request for /edit_school");
-   // fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
-    // if(err == null) {
-        // console.log('File exists');
-    // } else if(err.code == 'ENOENT') {
-		// console.log("Error");
-    // } else {
-        // console.log('Some other error: ', err.code);
-    // }
-   // });
-   // console.log(req.params.id);
-   // console.log(req.body);
-   // fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
-       // data = JSON.parse( data );
-	   // data[req.params.id] = req.body.school;
-       // console.log( data );
-	   // data = JSON.stringify(data)
-       // fs.writeFile("./app//public/json/" + "data.json", data, function (err){
-			// if(err) {
-			// return console.log(err);
-		// }
-	   // })
-   // });
-   //res.redirect('back');
+		   res.redirect('/');
+	    })
+		},500);
+		
+};
+
+//Make a queue for the services
+var serviceQ = async.queue(editHandler, 20);
+
+//All done with the queue
+serviceQ.drain = function() {
+    console.log('all services have been processed');
+}
+
+//EDIT service here.  Pushes tasks into the queue.
+app.post('/edit_school/:id', function(req, res) {
+   
+   serviceQ.push({req: req, res: res })	
+
 })
 
+//Server
 var server = app.listen(PORT, function () {
    var host = server.address().address
    var port = server.address().port

@@ -25,7 +25,7 @@ $(document).ready(function(){
 				type:'POST',
 				data:form,
 				success:function(result){
-					//location.reload();
+					location.reload();
 				}
 			});
 			i++;
@@ -67,7 +67,7 @@ $(document).ready(function(){
 		$.each( data, function( key, val ) {
 			
 			$("#SchoolTable").append(
-				"<div class='school' id='school"+school+"'><h2 class='name'>"+data[key].name+"</h2><p><span class='type'>Type: "+data[key].type+"</span><br/><span class='address'>Address: "+data[key].address+"</span><br/><span class='city'>City: "+data[key].city+"</span><br/><span class='zipcode'>Zipcode: "+data[key].zipcode+"</span><br/><span class='phone'>Phone: "+data[key].phone+"</span></p></div>"
+				"<div class='school' id='school"+school+"'><h2 class='name'>"+data[key].name+"</h2><p><span class='type'>Type: "+data[key].type+"</span><br/><span class='address'>Address: "+data[key].address+"</span><br/><span class='city'>City: "+data[key].city+"</span><br/><span class='zipcode'>Zipcode: "+data[key].zip+"</span><br/><span class='phone'>Phone: "+data[key].phone+"</span></p></div>"
 			)
 			
 			school++;
