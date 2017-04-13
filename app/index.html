@@ -5,6 +5,7 @@
 	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	  crossorigin="anonymous">
 	</script>
+	<script type="text/javascript" src="scripts/validation.js"></script>
 	<script type="text/javascript" src="scripts/data.js"></script>
 	<link rel="stylesheet" href="css/main.css" />
 </head>
@@ -27,8 +28,9 @@
 	<form method="post" action="/delete_school">
 		<label>School Name</label>
 		<input type="text" name="name" class="new-input name-input" />
-		<input type="submit" class="new-submit" value="DELETE" />
+		<input type="submit" class="new-submit delete-submit" value="DELETE" />
 	</form>
+	<p id="nodelete">School not found.  Nothing Deleted.</p>
 	</div>
 	<div class="edit-school">
 		<div class="edit-school-forms"></div>

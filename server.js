@@ -29,68 +29,13 @@ function handleRequest(request, response){
 }
 
 // Home
-app.get('/', function (req, res) {
-   console.log("Got a GET request for the homepage");
-   res.sendFile(__dirname + "/app/" + "index.html");
-})
+app.get('/', services.home)
 
-// This responds a POST request 
-app.post('/add_school', function (req, res) {
-   console.log("Got a POST request to add a school");
-   fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
-       data = JSON.parse( data );
-	   let count = Object.keys(data).length;
-	   count = count + 1;
-	   data["school" + count] = req.body.school;
-       //console.log( data );
-	   data = JSON.stringify(data)
-       fs.writeFile("./app//public/json/" + "data.json", data, function (err){
-			if(err) {
-			return console.log(err);
-		}
-	   })
-	   res.redirect('back');
-   });
-})
+// This responds a POST request to add a school 
+app.post('/add_school', services.add_school)
 
-// This responds a DELETE request for the /del_user page.
-app.post('/delete_school', function (req, res) {
-   console.log("Got a DELETE request for /del_school");
-   fs.stat( "./app//public/json/" + "data.json", function(err, stat) {
-    if(err == null) {
-        console.log('File exists');
-    } else if(err.code == 'ENOENT') {
-		console.log("Error");
-    } else {
-        console.log('Some other error: ', err.code);
-    }
-   });
-   fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
-       data = JSON.parse( data );
-	   let id = req.body.name;
-	   let found = false;
-	   for(var key in data) 
-	   {
-		    
-			if(data[key].name === id)
-			{
-				delete data[key];
-				found = true;
-			}
-			
-	   }
-	   if(!found){
-			console.log("No school with that name was found.")
-	   }
-	   data = JSON.stringify(data)
-       fs.writeFile("./app//public/json/" + "data.json", data, function (err){
-			if(err) {
-			return console.log(err);
-		}
-	   })
-	   res.redirect('back');
-   });
-})
+// This responds a POST request to delete a school
+app.post('/delete_school', services.delete_school)
 
 // This responds a GET request for the /list_user page.
 app.get('/list_schools', function (req, res) {

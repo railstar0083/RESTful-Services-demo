@@ -112,6 +112,8 @@ $(document).ready(function(){
 		editSubmit();
 	});
 	
+	$(".delete-submit").on("click", validate);
+	
 	//console.log(SCHOOLS);
 	
 
