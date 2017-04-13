@@ -37,12 +37,8 @@ app.post('/add_school', services.add_school)
 // This responds a POST request to delete a school
 app.post('/delete_school', services.delete_school)
 
-// This responds a GET request for the /list_user page.
-app.get('/list_schools', function (req, res) {
-   console.log("Got a GET request for /list_schools");
-   //reload page, jQuery Ajax is handling data display.
-   res.redirect('back');
-})
+// This responds a GET request to refresh the list.
+app.get('/list_schools', services.list_schools)
 
 //This is the queue task for async
 var editHandler = function(task, done) {

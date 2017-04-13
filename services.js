@@ -17,6 +17,12 @@ var home = function (req, res) {
    res.sendFile(__dirname + "/app/" + "index.html");
 }
 
+var list_schools = function (req, res) {
+   console.log("Got a GET request for /list_schools");
+   //reload page, jQuery Ajax is handling data display.
+   res.redirect('back');
+}
+
 var add_school = function (req, res) {
    debugger;
    console.log("Got a POST request to add a school");
