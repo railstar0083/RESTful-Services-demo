@@ -2,6 +2,7 @@ var http = require('http'),
 	fs = require('fs'),
 	formidable = require("formidable"),
 	qs = require('querystring'),
+	async = require('async'),
 	express = require('express'),
 	app = express(),
 	util = require('util');
@@ -82,5 +83,51 @@ var delete_school = function (req, res) {
    });
 }
 
+var edit_schools = function(req, res) {
+   serviceQ.push({req: req, res: res })
+   //res.redirect('/');
+}
 
-module.exports = {services, home, add_school, delete_school};
+//scaffold for edit service
+//This is the queue task for async
+var editHandler = function(task, callback) {
+	
+	var req = task.req;
+	var res = task.res;
+	
+	   console.log(req.params.id);
+	   console.log(req.body);
+	   //wrapped in a setTimeout to prevent a race condition
+
+			fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
+			   data = JSON.parse( data );
+			   data[req.params.id] = req.body.school;
+			   //console.log( data );
+			    fs.writeFile("./app//public/json/" + "data.json", JSON.stringify(data), 'utf8', function (err){
+					setTimeout(function(){
+						if(err) {
+							return console.log(err);
+						}
+						callback();
+					}, 500)
+					
+			    })
+			   if(err) {
+				return console.log(err);
+			   }
+			})
+
+	
+};
+
+//Make a queue for the services
+var serviceQ = async.queue(editHandler, 1);
+
+//All done with the queue
+serviceQ.drain = function() {
+    console.log('all services have been processed');
+	
+}
+
+
+module.exports = {services, home, add_school, delete_school, edit_schools, list_schools};

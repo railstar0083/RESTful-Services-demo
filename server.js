@@ -4,7 +4,6 @@ var http = require('http'),
 	formidable = require('formidable'),
 	util = require('util'),
 	bodyParser = require('body-parser'),
-	async = require('async'),
 	express = require('express'),
 	app = express(),
 	services = require('./services.js');
@@ -40,45 +39,8 @@ app.post('/delete_school', services.delete_school)
 // This responds a GET request to refresh the list.
 app.get('/list_schools', services.list_schools)
 
-//This is the queue task for async
-var editHandler = function(task, done) {
-	
-	var req = task.req;
-	var res = task.res;
-	
-	   console.log(req.params.id);
-	   console.log(req.body);
-	   //wrapped in a setTimeout to prevent a race condition
-		setTimeout(function(){
-			fs.readFile( "./app//public/json/" + "data.json", 'utf8', function (err, data) {
-		   data = JSON.parse( data );
-		   data[req.params.id] = req.body.school;
-		   //console.log( data );
-		   fs.writeFile("./app//public/json/" + "data.json", JSON.stringify(data), function (err){
-			if(err) {
-				return console.log(err);
-		    }
-	       })
-		   res.redirect('/');
-	    })
-		},500);
-		
-};
-
-//Make a queue for the services
-var serviceQ = async.queue(editHandler, 20);
-
-//All done with the queue
-serviceQ.drain = function() {
-    console.log('all services have been processed');
-}
-
 //EDIT service here.  Pushes tasks into the queue.
-app.post('/edit_school/:id', function(req, res) {
-   
-   serviceQ.push({req: req, res: res })	
-
-})
+app.post('/edit_school/:id', services.edit_schools)
 
 //Server
 var server = app.listen(PORT, function () {

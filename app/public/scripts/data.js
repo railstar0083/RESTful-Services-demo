@@ -25,7 +25,7 @@ $(document).ready(function(){
 				type:'POST',
 				data:form,
 				success:function(result){
-					location.reload();
+					//location.reload();
 				}
 			});
 			i++;
