@@ -2,6 +2,22 @@ body {
 	height: 100%;
 	color: #000;
 	background: #ccc;
+	header {
+		text-align: center;
+		padding: 25px 0;
+		ul {
+			text-align: left;
+			margin: 0 auto;
+			display: inline-block;
+			width: 460px;
+			li {
+				margin-bottom: 5px;
+				span {
+					font-weight: bold;
+				}
+			} 
+		}
+	}
 	#SchoolTable {
 		border: 1px solid #000;
 		width: 960px;
