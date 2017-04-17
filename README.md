@@ -5,5 +5,5 @@ The primary goal of this project is to demonstrate that I can use Node.js for mo
 
 For an example of active search using React and this same data set, see my other repos.
 
-UPDATE 4/17/17
+UPDATE 4/17/17  
 The forms associated with the Add and Delete services should now do basic validation.  Also cleaned up the header HTML and added some basic instructions for use.
