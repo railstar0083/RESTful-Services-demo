@@ -44,20 +44,20 @@
 		<input id="edit-submit-button" type='submit' class='new-submit' value='EDIT' />
 	</div>
 	<div class="new-school">
-		<form method="post" action="/add_school">
+		<form id="addForm" method="post" action="/add_school">
 			<label>School Name</label>
-			<input type="text" name="school[name]" class="new-input name-input" />
+			<input type="text" name="school[name]" class="new-input name-input" /><span class="val-message">*School Name is required</span>
 			<label>Type</label>
-			<input type="text" name="school[type]" class="new-input type-input" placeholder="(ex. High School)"/>
+			<input type="text" name="school[type]" class="new-input type-input" placeholder="(ex. High School)"/><span class="val-message">*School Type is required</span>
 			<label>Address</label>
-			<input type="text" name="school[address]" class="new-input address-input" placeholder="(No P.O. Boxes)"/>
+			<input type="text" name="school[address]" class="new-input address-input" placeholder="(No P.O. Boxes)"/><span class="val-message">*School Address is required</span>
 			<label>City</label>
-			<input type="text" name="school[city]" class="new-input city-input" placeholder="" />
+			<input type="text" name="school[city]" class="new-input city-input" placeholder="" /><span class="val-message">*School City is required</span>
 			<label>Zip Code</label>
-			<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" />
+			<input type="text" name="school[zip]" class="new-input zip-input" placeholder="" /><span class="val-message"></span>
 			<label>Phone</label>
 			<input type="text" name="school[phone]" class="new-input phone-input" placeholder="optional" />
-			<input type="submit" class="new-submit" value="ADD" />
+			<input type="submit" class="new-submit add-submit" value="ADD" />
 		</form>
 	</div>
 	

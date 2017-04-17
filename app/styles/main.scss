@@ -53,6 +53,15 @@ body {
 			label {
 				display: block;
 			}
+			span.val-message {
+				display: none;
+				color: red;
+				font-weight: bold;
+				font-size: 10px;
+				&.val-error {
+					display: block;
+				}
+			}
 		}
 		.new-school, .delete-school, .edit-school, #nodelete {
 			display: none;
